@@ -1,0 +1,34 @@
+Sobre o Desenvolvimento
+
+Infelizmente não houve tempo suficiente para o desenvolvimento de todos os requisitos. Acabaram surgindo alguns imprevistos em meu trabalho atual e acabei sendo engajado para a resolução de alguns problemas no ambiente de produção de alguns de nossos clientes. Assim não consegui empregar todo o tempo que gostaria no desenvolvimento deste projeto. Abaixo um resumo dos tempos gastos com o desenvolvimento bem como os desafios enfrentados.
+
+Preparação do ambiente desenvolvimento - 4 horas
+A preparação do ambiente levou um tempo considerável, visto que atualmente trabalho com tecnologias mais especificas cujo ambiente não pôde ser reaproveitado.
+Esta preparação compreendeu a instalação de um ambiente Linux com um ambiente de desenvolvimento Java, composto pela IDE Netbeans o servidor GlassFish e os Frameworks: JPA, JSF, Primefaces, Maven e Etc.
+Além do ambiente de desenvolvimento foi configurada uma base de dados MySQL em um servidor que possuo no DigitalOcean. A base de dados suporta acesso remota e está pronta para ser usada nos testes desta aplicação.
+O desafio da preparação do ambiente consistiu principalmente na configuração da base de dados para acesso remoto. Foi configurado um usuário especial com permissões somente para a base de dados desta aplicação. A porta 3306 do MySQL foi configurada no Firewall, além de outros detalhes de infraestrutura que sempre aparecem nessas ocasiões.
+
+Desenvolvimento da aplicação CRUD - 5 horas
+A aplicação WEB CRUD foi desenvolvida com os frameworks JSF+Primefaces para o Front-End e o Framework JPA para acesso e persistência na base de dados
+Não se enfrentou grandes dificuldades para o desenvolvimento do Crud básico.
+
+Integração com o Google SignIn - 5 horas
+A forma mais simples para se integrar o google sign-In, descrita aqui: https://developers.google.com/identity/sign-in/web/sign-in, não é suficiente para este projeto em termos de segurança, uma vez que a autenticação ocorre 'basicamente' do lado do cliente. Dessa forma se optou em seguir a abordagem Google Sign-In for server-side apps, descrita aqui: https://developers.google.com/identity/sign-in/web/server-side-flow.
+Nesta integração eu encontrei dificuldades por ainda não estar familiarizado com o protocolo OAuth. Após alguns estudos, o fluxo se tornou claro para mim, no entanto enfrentei problemas na etapa final de autenticação. Após o usuário realizar o login com a conta google, minha aplicação falha na etapa de trocas de tokens com o servidor google. Este é erro:
+
+Caused by: com.google.api.client.auth.oauth2.TokenResponseException: 400 Bad Request
+{
+  "error" : "redirect_uri_mismatch",
+  "error_description" : "Bad Request"
+}
+
+Infelizmente não houve tempo suficiente para uma melhor investigação deste problema e a aplicação está sendo entregue nesta condição. Acredito que o problema esta relacionado ao fato da aplicação estar sendo testada de forma local ou a alguma peculiaridade nas configurações da API Google que criei e associei a esta aplicação.
+
+
+Infelizmente não houve tempo para implementar o tratamento dos anexos, o uso do conceito de filas e a indexação no Elastic Search, se houvesse tempo, eu faria da seguinte forma:
+
+Tratamento dos anexos: Eu realizaria o Upload dos anexos num diretório especial no servidor de Cloud que já possuo no DigitalOcean. Após o upload eu recuperaria os respectivos Links e salvaria uma tupla para cada anexo na tabela Anexo do banco de dados. Cada anexo esta obrigatoriamente relacionado a uma certa tarefa. Com a persistência dos meta-dados de cada Anexo e as relações entre Tasks e Anexos, seria bem tranquilo disponibilizar uma interface para download dos anexos referentes a uma certa Task.
+
+Tasks sendo consumidas da fila F: Eu implementaria o problema clássico do Produtor-Consumidor. A Aplicação produz uma Task que é então consumida por uma Thread F. A Thread F se responsabilizaria pelo upload dos anexos e finalização da criação da TASK. Enquanto isso a aplicação estaria disponível para outras operações envolvendo outras Tasks.
+
+Indexação no Elastic Search: No momento que uma task fosse configurada como Done, uma rotina geraria um JSON da Task com suas informações e realizaria a inserção no Elastic Search para a indexação.
