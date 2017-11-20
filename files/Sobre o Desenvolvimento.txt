@@ -1,6 +1,6 @@
 Sobre o Desenvolvimento
 
-Infelizmente não houve tempo suficiente para o desenvolvimento de todos os requisitos. Acabaram surgindo alguns imprevistos em meu trabalho atual e acabei sendo engajado para a resolução de alguns problemas no ambiente de produção de alguns de nossos clientes. Assim não consegui empregar todo o tempo que gostaria no desenvolvimento deste projeto. Abaixo um resumo dos tempos gastos com o desenvolvimento bem como os desafios enfrentados.
+Abaixo um resumo dos tempos gastos com o desenvolvimento bem como os desafios enfrentados.
 
 Preparação do ambiente desenvolvimento - 4 horas
 A preparação do ambiente levou um tempo considerável, visto que atualmente trabalho com tecnologias mais especificas cujo ambiente não pôde ser reaproveitado.
@@ -24,8 +24,7 @@ Caused by: com.google.api.client.auth.oauth2.TokenResponseException: 400 Bad Req
 
 Infelizmente não houve tempo suficiente para uma melhor investigação deste problema e a aplicação está sendo entregue nesta condição. Acredito que o problema esta relacionado ao fato da aplicação estar sendo testada de forma local ou a alguma peculiaridade nas configurações da API Google que criei e associei a esta aplicação.
 
-
-Infelizmente não houve tempo para implementar o tratamento dos anexos, o uso do conceito de filas e a indexação no Elastic Search, se houvesse tempo, eu faria da seguinte forma:
+Também não houve tempo para implementar o tratamento dos anexos, o uso do conceito de filas e a indexação no Elastic Search, se houvesse tempo, eu faria da seguinte forma:
 
 Tratamento dos anexos: Eu realizaria o Upload dos anexos num diretório especial no servidor de Cloud que já possuo no DigitalOcean. Após o upload eu recuperaria os respectivos Links e salvaria uma tupla para cada anexo na tabela Anexo do banco de dados. Cada anexo esta obrigatoriamente relacionado a uma certa tarefa. Com a persistência dos meta-dados de cada Anexo e as relações entre Tasks e Anexos, seria bem tranquilo disponibilizar uma interface para download dos anexos referentes a uma certa Task.
 
