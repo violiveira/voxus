@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"  >
+    
+    <button id="signinButton">Sign in with Google</button>
+    <script>
+      $('#signinButton').click(function() {
+        // signInCallback defined in step 6.
+        auth2.grantOfflineAccess().then(signInCallback);
+      });
+    </script>
+    
+    <script>
+        function signInCallback(authResult) {
+          if (authResult['code']) {
+              
+            var googleCode = authResult['code'];
+            document.getElementById('loginForm:googleCodeContainer').value = googleCode;
+            document.getElementById('loginForm:sendAuthCode').click();
+            
+            // Hide the sign-in button now that the user is authorized, for example:
+            $('#signinButton').attr('style', 'display: none');           
+            
+          } else {
+            system.log("Erro na autenticação")
+          }
+        }
+    </script>
+    
+    <h:form id="loginForm">
+        <h:inputHidden id="googleCodeContainer"/>
+        <p:commandLink id="sendAuthCode" action="#{mBLogin.doLogin()}" style="display:'none'"/>        
+    </h:form>   
+    
+</ui:composition>
+

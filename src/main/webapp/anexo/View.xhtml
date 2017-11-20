@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnexoViewDlg" widgetVar="AnexoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAnexoTitle}">
+            <h:form id="AnexoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{anexoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAnexoLabel_idanexo}"/>
+                        <h:outputText value="#{anexoController.selected.idanexo}" title="#{bundle.ViewAnexoTitle_idanexo}"/>
+                        <h:outputText value="#{bundle.ViewAnexoLabel_nome}"/>
+                        <h:outputText value="#{anexoController.selected.nome}" title="#{bundle.ViewAnexoTitle_nome}"/>
+                        <h:outputText value="#{bundle.ViewAnexoLabel_link}"/>
+                        <h:outputText value="#{anexoController.selected.link}" title="#{bundle.ViewAnexoTitle_link}"/>
+                        <h:outputText value="#{bundle.ViewAnexoLabel_taskid}"/>
+                        <h:outputText value="#{anexoController.selected.taskid}" title="#{bundle.ViewAnexoTitle_taskid}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AnexoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

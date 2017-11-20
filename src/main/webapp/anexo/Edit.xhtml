@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnexoEditDlg" widgetVar="AnexoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAnexoTitle}">
+            <h:form id="AnexoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{anexoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAnexoLabel_idanexo}" for="idanexo" />
+                        <p:inputText id="idanexo" value="#{anexoController.selected.idanexo}" title="#{bundle.EditAnexoTitle_idanexo}" required="true" requiredMessage="#{bundle.EditAnexoRequiredMessage_idanexo}"/>
+                        <p:outputLabel value="#{bundle.EditAnexoLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{anexoController.selected.nome}" title="#{bundle.EditAnexoTitle_nome}" required="true" requiredMessage="#{bundle.EditAnexoRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.EditAnexoLabel_link}" for="link" />
+                        <p:inputText id="link" value="#{anexoController.selected.link}" title="#{bundle.EditAnexoTitle_link}" required="true" requiredMessage="#{bundle.EditAnexoRequiredMessage_link}"/>
+                        <p:outputLabel value="#{bundle.EditAnexoLabel_taskid}" for="taskid" />
+                        <p:selectOneMenu id="taskid" value="#{anexoController.selected.taskid}" required="true" requiredMessage="#{bundle.EditAnexoRequiredMessage_taskid}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{taskController.itemsAvailableSelectOne}"
+                                           var="taskidItem"
+                                           itemValue="#{taskidItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{anexoController.update}" value="#{bundle.Save}" update="display,:AnexoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AnexoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AnexoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

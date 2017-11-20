@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaskEditDlg" widgetVar="TaskEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTaskTitle}">
+            <h:form id="TaskEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taskController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditTaskLabel_idtask}" for="idtask" />
+                        <p:inputText id="idtask" value="#{taskController.selected.idtask}" title="#{bundle.EditTaskTitle_idtask}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_idtask}"/>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{taskController.selected.nome}" title="#{bundle.EditTaskTitle_nome}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{taskController.selected.descricao}" title="#{bundle.EditTaskTitle_descricao}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_descricao}"/>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_prioridade}" for="prioridade" />
+                        <p:inputText id="prioridade" value="#{taskController.selected.prioridade}" title="#{bundle.EditTaskTitle_prioridade}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_prioridade}"/>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_submetido}" for="submetido" />
+                        <p:inputText id="submetido" value="#{taskController.selected.submetido}" title="#{bundle.EditTaskTitle_submetido}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_submetido}"/>
+                        <p:outputLabel value="#{bundle.EditTaskLabel_finalizado}" for="finalizado" />
+                        <p:inputText id="finalizado" value="#{taskController.selected.finalizado}" title="#{bundle.EditTaskTitle_finalizado}" />
+                        <p:outputLabel value="#{bundle.EditTaskLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{taskController.selected.status}" title="#{bundle.EditTaskTitle_status}" required="true" requiredMessage="#{bundle.EditTaskRequiredMessage_status}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taskController.update}" value="#{bundle.Save}" update="display,:TaskListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TaskEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TaskEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

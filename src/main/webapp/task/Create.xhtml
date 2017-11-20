@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaskCreateDlg" widgetVar="TaskCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTaskTitle}">
+            <h:form id="TaskCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taskController.selected != null}">                       
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{taskController.selected.nome}" title="#{bundle.CreateTaskTitle_nome}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_nome}"/>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_descricao}" for="descricao" />
+                        <p:inputText id="descricao" value="#{taskController.selected.descricao}" title="#{bundle.CreateTaskTitle_descricao}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_descricao}"/>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_prioridade}" for="prioridade" />
+                        <p:inputText id="prioridade" value="#{taskController.selected.prioridade}" title="#{bundle.CreateTaskTitle_prioridade}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_prioridade}"/>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_submetido}" for="submetido" />
+                        <p:inputText id="submetido" value="#{taskController.selected.submetido}" title="#{bundle.CreateTaskTitle_submetido}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_submetido}"/>
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_finalizado}" for="finalizado" />
+                        <p:inputText id="finalizado" value="#{taskController.selected.finalizado}" title="#{bundle.CreateTaskTitle_finalizado}" />
+                        <p:outputLabel value="#{bundle.CreateTaskLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{taskController.selected.status}" title="#{bundle.CreateTaskTitle_status}" required="true" requiredMessage="#{bundle.CreateTaskRequiredMessage_status}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taskController.create}" value="#{bundle.Save}" update="display,:TaskListForm:datalist,:growl" oncomplete="handleSubmit(args,'TaskCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TaskCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
